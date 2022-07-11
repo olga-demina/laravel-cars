@@ -24,6 +24,7 @@ Route::middleware('auth')
     ->prefix('admin') // la prima parte del url di route, es: admin/ , admin/cars/, admin/cars/create ecc
     ->group(function() {
         Route::get('/', 'HomeController@index')->name('home');
+        Route::resource('cars', 'CarController');
     });
 
 Route::get('{any?}', function() {

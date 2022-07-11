@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Car;
+use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CarsController extends Controller {
+class CarController extends Controller {
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +24,8 @@ class CarsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('admin.cars.create');
+        $categories = Category::all();
+        return view('admin.cars.create', compact('categories'));
     }
 
     /**
@@ -104,6 +106,7 @@ class CarsController extends Controller {
         return [
             'brand' => 'required|max:50',
             'model' => 'required|max:225',
+            'category_id' => 'nullable|exists:categories,id',
             'cc' => 'required|max:10',
             'doors' => 'required|digits_between:1,5',
             'image' => 'required',

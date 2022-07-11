@@ -10,11 +10,16 @@ class Car extends Model
     protected $fillable = [
         'brand',
         'model',
+        'category_id',
         'cc',
         'doors',
         'image',
         'registration_date'
     ];
+
+    public function category() {
+        return $this->belongsTo('App\Category');
+    }
 
     public static function generatePostSlugFromBrandAndModel($brand, $model) {
         $base_slug = Str::slug($brand . '-' . $model); 

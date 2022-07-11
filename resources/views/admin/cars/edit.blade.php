@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1>Crea un nuovo post</h1>
+    <h1>Modifica autoveicolo</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
