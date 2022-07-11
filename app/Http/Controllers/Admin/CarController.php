@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Car;
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Optional;
 use Illuminate\Http\Request;
 
 class CarController extends Controller {
@@ -25,7 +26,8 @@ class CarController extends Controller {
      */
     public function create() {
         $categories = Category::all();
-        return view('admin.cars.create', compact('categories'));
+        $optionals = Optional::all();
+        return view('admin.cars.create', compact('categories', 'optionals'));
     }
 
     /**
@@ -43,6 +45,10 @@ class CarController extends Controller {
         $new_car->fill($form_data);
         $new_car->slug = Car::generatePostSlugFromBrandAndModel($new_car->brand, $new_car->model);
         $new_car->save();
+
+        if (isset($form_data['optionals'])) {
+            $new_car->optionals()->sync($form_data['optionals']);
+        }
 
         return redirect()->route('admin.cars.show', ['car' => $new_car->id]);
     }
@@ -107,6 +113,7 @@ class CarController extends Controller {
             'brand' => 'required|max:50',
             'model' => 'required|max:225',
             'category_id' => 'nullable|exists:categories,id',
+            'optionals' => 'nullable|exists:optionals,id',
             'cc' => 'required|max:10',
             'doors' => 'required|digits_between:1,5',
             'image' => 'required',

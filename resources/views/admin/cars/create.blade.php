@@ -32,9 +32,20 @@
             <select class="form-control" name="category_id" id="category_id">
                 <option value="">nessuna</option>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}</option>
                 @endforeach
             </select>
+        </div>
+
+        <div class="my-3">
+            <h4>Optionals</h4>
+            @foreach ($optionals as $optional)
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{ $optional->id }}" name="optionals[]" id="optional-{{ $optional->id }}"  {{ in_array($optional->id, old('optionals', [])) ? 'checked' : '' }}>
+                    <label for="optional-{{ $optional->id }}">{{ $optional->name }}</label>
+                </div>
+            @endforeach
         </div>
 
         <div class="form-group">

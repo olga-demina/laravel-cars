@@ -11,6 +11,17 @@
                     <p>slug: {{ $car->slug }}</p>
                     <p>CC: {{ $car->cc }}</p>
 
+
+                    <h5>Optionals:</h5>
+                    <ul>
+                        @forelse ($car->optionals as $optional)
+                            <li> {{ $optional->name }} </li>
+                        @empty
+                            <li>nessuno</li>
+                        @endforelse
+
+                    </ul>
+
                     <a href="{{ route('admin.cars.edit', ['car' => $car->id]) }}">Modifica</a>
                 </div>
             </div>

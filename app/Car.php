@@ -21,6 +21,10 @@ class Car extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function optionals() {
+        return $this->belongsToMany('App\Optional');
+    }
+
     public static function generatePostSlugFromBrandAndModel($brand, $model) {
         $base_slug = Str::slug($brand . '-' . $model); 
         $slug = $base_slug; 
