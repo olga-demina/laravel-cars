@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth')
+    ->namespace('Admin') // Cartella dove si trovano i controller
+    ->name('admin.') // la prima parte del name di route: es: admin.home, admin.cars.index ecc
+    ->prefix('admin') // la prima parte del url di route, es: admin/ , admin/cars/, admin/cars/create ecc
+    ->group(function() {
+        Route::get('/', 'HomeController@index')->name('home');
+    });
