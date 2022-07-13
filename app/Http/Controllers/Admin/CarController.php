@@ -7,6 +7,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Optional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class CarController extends Controller {
     /**
@@ -60,8 +61,11 @@ class CarController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
+
         $car = Car::findOrFail($id);
-        return view('admin.cars.show', compact('car'));
+        $now = Carbon::now();
+        $updated_mins_ago = $car->updated_at->diffInMinutes($now);
+        return view('admin.cars.show', compact('car', 'updated_mins_ago'));
     }
 
     /**
