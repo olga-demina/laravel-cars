@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <h1>I nostri autoveicoli</h1>
     <p>Trovati {{ totalCars }} veicoli</p>
     <div class="form-group">
       <label for="items_per_page">Elementi per pagina</label>
